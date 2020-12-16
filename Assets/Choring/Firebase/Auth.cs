@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using System.Threading.Tasks;
 using System.Threading;
 
@@ -17,8 +18,8 @@ public class Auth
         return this;
     }
 
-    public void LoginGuest(System.Action onLoginComplete) {
-        auth.SignInAnonymouslyAsync().ContinueWith(task => {
+    public async void LoginGuest(UnityAction onLoginComplete) {
+        await auth.SignInAnonymouslyAsync().ContinueWith(task => {
             if (task.IsCanceled)
             {
                 Debug.LogError("SignInAnonymouslyAsync was canceled.");
@@ -32,8 +33,10 @@ public class Auth
 
             this.user = task.Result;
             
-            onLoginComplete();
+     
         });
-    }
+
+            onLoginComplete();
+        }
 }
 }

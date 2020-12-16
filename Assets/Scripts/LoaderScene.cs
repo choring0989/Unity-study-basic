@@ -5,19 +5,21 @@ using Choring;
 
 public class LoaderScene : MonoBehaviour
 {
+    public NoticePopup noticePopup;
+    
     public void Awake() {
         Choring.Choring.Init();
     }
 
     void Start()
     {
-        Choring.Choring.Auth.LoginGuest(this.onLoginComplete);
+        Choring.Choring.Auth.LoginGuest(this.OnLoginComplete);
     }
 
-    void onLoginComplete()
+    void OnLoginComplete()
     {
         Debug.Log(Choring.Choring.Auth.user.UserId);
-
+        noticePopup.ShowPopup();
     }
 
     // Update is called once per frame
